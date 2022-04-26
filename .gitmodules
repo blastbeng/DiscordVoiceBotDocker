@@ -1,0 +1,6 @@
+[submodule "client"]
+	path = client
+	url = https://github.com/blastbeng/DiscordVoiceBotClient
+[submodule "api"]
+	path = api
+	url = https://github.com/blastbeng/DiscordVoiceBotServer
