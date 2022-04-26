@@ -1,27 +1,27 @@
 ---
 version: "3.3"
 services:
-  accumulators-discord-chatbot-api:
-    container_name: accumulators-discord-chatbot-api
+  discord-voicebot-api-api:
+    container_name: discord-voicebot-api-api
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "accumulators-discord-chatbot-api:latest"
+    image: "discord-voicebot-api-api:latest"
     restart: always
     volumes:
       - ".env:/app/.env"
       - "./db.sqlite3:/app/db.sqlite3"
-      - "/tmp/AccumulatorsBot:/tmp/AccumulatorsBot"
+      - "/tmp/DiscordVoiceBot:/tmp/DiscordVoiceBot"
     ports:
       - 5080:5080  
-  accumulators-discord-chatbot-client:
-    container_name: accumulators-discord-chatbot-client
+  discord-voicebot-api-client:
+    container_name: discord-voicebot-api-client
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "accumulators-discord-chatbot-client:latest"
+    image: "discord-voicebot-api-client:latest"
     restart: always
     volumes:
-      - "/tmp/AccumulatorsBot/audio:/tmp/AccumulatorsBot/audio"
+      - "/tmp/DiscordVoiceBot/audio:/tmp/DiscordVoiceBot/audio"
