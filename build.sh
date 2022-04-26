@@ -1,3 +1,3 @@
 touch db.sqlite3
-docker build ./chatbot/ -f ./chatbot/Dockerfile.chatbot  -t accumulators-discord-chatbot-api:latest
-docker build ./client/ -f ./client/Dockerfile.client  -t accumulators-discord-chatbot-client:latest
+docker build ./api/ -f ./chatbot/Dockerfile.chatbot  -t discord-voicebot-api:latest
+docker build ./client/ -f ./client/Dockerfile.client  -t discord-voicebot-client:latest
