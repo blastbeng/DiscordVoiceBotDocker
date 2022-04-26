@@ -10,7 +10,7 @@ services:
     image: "discord-voicebot-api:latest"
     restart: always
     volumes:
-      - "./db.sqlite3:/app/db.sqlite3"
+      - "./config:/app/config"
       - "/tmp/DiscordVoiceBot:/tmp/DiscordVoiceBot"
     ports:
       - 5080:5080  
