@@ -1,0 +1,27 @@
+---
+version: "3.3"
+services:
+  accumulators-discord-chatbot-api:
+    container_name: accumulators-discord-chatbot-api
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "accumulators-discord-chatbot-api:latest"
+    restart: always
+    volumes:
+      - ".env:/app/.env"
+      - "./db.sqlite3:/app/db.sqlite3"
+      - "/tmp/AccumulatorsBot:/tmp/AccumulatorsBot"
+    ports:
+      - 5080:5080  
+  accumulators-discord-chatbot-client:
+    container_name: accumulators-discord-chatbot-client
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "accumulators-discord-chatbot-client:latest"
+    restart: always
+    volumes:
+      - "/tmp/AccumulatorsBot/audio:/tmp/AccumulatorsBot/audio"
