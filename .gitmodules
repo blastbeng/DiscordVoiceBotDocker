@@ -1,6 +1,8 @@
 [submodule "api"]
 	path = api
 	url = https://github.com/blastbeng/DiscordVoiceBotServer.git
+	branch = main
 [submodule "client"]
 	path = client
 	url = https://github.com/blastbeng/DiscordVoiceBotClient.git
+	branch = main
