@@ -1,1 +1,1 @@
-docker build ./chatbot/ -f ./chatbot/Dockerfile.chatbot  -t accumulators-discord-chatbot-api:latest
+docker build ./chatbot/ -f ./chatbot/Dockerfile.chatbot  -t discord-voicebot-api:latest
