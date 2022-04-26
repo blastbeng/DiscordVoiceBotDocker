@@ -1,0 +1,17 @@
+---
+version: "3.3"
+services:
+  discord-voicebot-api-api:
+    container_name: discord-voicebot-api-api
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "discord-voicebot-api-api:latest"
+    restart: always
+    volumes:
+      - ".env:/app/.env"
+      - "./db.sqlite3:/app/db.sqlite3"
+      - "/tmp/DiscordVoiceBot:/tmp/DiscordVoiceBot"
+    ports:
+      - 5080:5080
