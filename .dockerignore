@@ -1,0 +1,5 @@
+**/node_modules
+**/venv
+**/config
+**/vscode
+**/__pycache__
