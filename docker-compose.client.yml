@@ -1,0 +1,13 @@
+---
+version: "3.3"
+services:
+  discord-voicebot-api-client:
+    container_name: discord-voicebot-api-client
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "discord-voicebot-api-client:latest"
+    restart: always
+    volumes:
+      - "/tmp/DiscordVoiceBot/audio:/tmp/DiscordVoiceBot/audio"
