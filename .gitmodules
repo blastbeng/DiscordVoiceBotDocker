@@ -4,3 +4,6 @@
 [submodule "api"]
 	path = api
 	url = https://github.com/blastbeng/DiscordVoiceBotServer
+[submodule "trivia_api"]
+	path = trivia_api
+	url = https://github.com/blastbeng/TriviaGameApi
