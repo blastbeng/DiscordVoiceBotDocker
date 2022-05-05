@@ -36,4 +36,4 @@ services:
       - "./config:/app/config"
       - "/tmp/TriviaGameApi:/tmp/TriviaGameApi"
     ports:
-      - 5081:5081
+      - 5082:5081
