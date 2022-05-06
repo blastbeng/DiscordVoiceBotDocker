@@ -24,16 +24,3 @@ services:
     restart: always
     volumes:
       - "/tmp/DiscordVoiceBot/audio:/tmp/DiscordVoiceBot/audio"
-  trivia-game-api:
-    container_name: trivia-game-api
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    image: "trivia-game-api:latest"
-    restart: always
-    volumes:
-      - "./config:/app/config"
-      - "/tmp/TriviaGameApi:/tmp/TriviaGameApi"
-    ports:
-      - 5082:5081
