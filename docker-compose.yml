@@ -24,3 +24,11 @@ services:
     restart: always
     volumes:
       - "/tmp/DiscordVoiceBot/audio:/tmp/DiscordVoiceBot/audio"
+  frittoplay-telegram-bot:
+    container_name: frittoplay-telegram-bot
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "frittoplay-telegram-bot:latest"
+    restart: always

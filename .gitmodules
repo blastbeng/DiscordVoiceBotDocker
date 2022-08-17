@@ -4,3 +4,6 @@
 [submodule "api"]
 	path = api
 	url = https://github.com/blastbeng/DiscordVoiceBotServer
+[submodule "FrittoPlayTelegramBot"]
+	path = FrittoPlayTelegramBot
+	url = https://github.com/blastbeng/FrittoPlayTelegramBot
