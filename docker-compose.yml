@@ -8,12 +8,14 @@ services:
       - PGID=1000
       - TZ=Europe/Rome
     image: "discord-voicebot-api:latest"
-    restart: always
+    restart: "no"
     volumes:
       - "./config:/app/config"
       - "/tmp/DiscordVoiceBot:/tmp/DiscordVoiceBot"
     ports:
-      - 5080:5080  
+      - 5080:5080
+    networks:
+      - caching
   discord-voicebot-client:
     container_name: discord-voicebot-client
     environment:
@@ -21,7 +23,7 @@ services:
       - PGID=1000
       - TZ=Europe/Rome
     image: "discord-voicebot-client:latest"
-    restart: always
+    restart: "no"
     volumes:
       - "/tmp/DiscordVoiceBot/audio:/tmp/DiscordVoiceBot/audio"
   frittoplay-telegram-bot:
@@ -31,4 +33,14 @@ services:
       - PGID=1000
       - TZ=Europe/Rome
     image: "frittoplay-telegram-bot:latest"
-    restart: always
+    restart: "no"
+  redis:
+    image: redis
+    container_name: voicebot-redis
+#    ports:
+#      - 6379:6379
+    networks:
+      - caching
+networks:
+  caching:
+    driver: bridge
