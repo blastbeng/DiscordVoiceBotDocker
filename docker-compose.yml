@@ -16,6 +16,7 @@ services:
       - 5080:5080
     networks:
       - caching
+#      - battuteapi
   discord-voicebot-client:
     container_name: discord-voicebot-client
     environment:
@@ -34,13 +35,26 @@ services:
       - TZ=Europe/Rome
     image: "frittoplay-telegram-bot:latest"
     restart: "no"
+  battuteapi:
+    container_name: battuteapi
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "battuteapi:latest"
+    volumes:
+      - ./config/battuteapi_data:/usr/src/app/data
+    ports:
+      - 3050:3050
+#    networks:
+#      - battuteapi
   redis:
     image: redis
     container_name: voicebot-redis
-#    ports:
-#      - 6379:6379
     networks:
       - caching
 networks:
   caching:
     driver: bridge
+#  battuteapi:
+#    name: battuteapi
