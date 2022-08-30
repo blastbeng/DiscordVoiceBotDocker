@@ -10,3 +10,6 @@
 [submodule "FrittoPlayWhatsappBot"]
 	path = FrittoPlayWhatsappBot
 	url = https://github.com/blastbeng/FrittoPlayWhatsappBot
+[submodule "battuteAPI"]
+	path = battuteAPI
+	url = https://github.com/blastbeng/battuteAPI
