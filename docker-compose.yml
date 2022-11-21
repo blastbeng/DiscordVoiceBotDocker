@@ -1,0 +1,107 @@
+---
+version: "3.3"
+services:
+  scemo-pezzente-api-1:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.api
+    container_name: scemo-pezzente-api-1
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "scemo-pezzente-api:latest"
+    restart: "no"
+    volumes:
+      - ".env:/app/.env"
+      - "./config:/app/config"
+      - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
+      - "/dev/dri/card0:/dev/dri/card0"
+      - "/dev/dri/renderD128:/dev/dri/renderD128"
+    ports:
+      - 5081:5080
+    networks:
+      - caching
+  scemo-pezzente-api-2:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.api
+    container_name: scemo-pezzente-api-2
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "scemo-pezzente-api:latest"
+    restart: "no"
+    volumes:
+      - ".env:/app/.env"
+      - "./config:/app/config"
+      - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
+      - "/dev/dri/card0:/dev/dri/card0"
+      - "/dev/dri/renderD128:/dev/dri/renderD128"
+    ports:
+      - 5082:5080
+    networks:
+      - caching
+  battuteapi:
+    build:
+      context: ./battuteAPI
+      dockerfile: Dockerfile
+    container_name: battuteapi
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "battuteapi:latest"
+    volumes:
+      - ./config/battuteapi_data:/usr/src/app/data
+    ports:
+      - 3050:3050
+  redis:
+    image: redis
+    container_name: voicebot-redis
+    networks:
+      - caching
+  nginx:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.balancer
+    container_name: scemo-pezzente-api-balancer
+    image: "scemo-pezzente-api-balancer:latest"
+    ports:
+      - "5080:80"
+    depends_on:
+      - scemo-pezzente-api-1
+      - scemo-pezzente-api-2
+  scemo-pezzente-discord:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.client
+    container_name: scemo-pezzente-discord
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    image: "scemo-pezzente-discord:latest"
+    restart: "no"
+    volumes:
+      - "./config.json:/usr/src/app/config.json"
+      - "/tmp/scemo-pezzente-discord:/tmp/scemo-pezzente-discord"
+  scemo-pezzente-telegram:
+    build:
+      context: ./FrittoPlayTelegramBot
+      dockerfile: Dockerfile
+    container_name: scemo-pezzente-telegram
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Rome
+    volumes:
+      - ".env:/app/.env"
+    image: "scemo-pezzente-telegram:latest"
+    restart: "no"
+networks:
+  caching:
+    driver: bridge
+
+
