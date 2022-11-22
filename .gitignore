@@ -137,4 +137,4 @@ config/
 pixray
 pixray/
 diffvg
-diffvg/
+diffvg/.env.example
