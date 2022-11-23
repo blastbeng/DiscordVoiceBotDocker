@@ -55,13 +55,11 @@ services:
       - ./config/battuteapi_data:/usr/src/app/data
     ports:
       - 3050:3050
-    restart: "no"
   redis:
     image: redis
     container_name: voicebot-redis
     networks:
       - caching
-    restart: "no"
   scemo-pezzente-api-balancer:
     build:
       context: ./api
@@ -73,40 +71,10 @@ services:
     depends_on:
       - scemo-pezzente-api-1
       - scemo-pezzente-api-2
+      - scemo-pezzente-api-3
+      - scemo-pezzente-api-4
     volumes:
       - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
-    restart: "no"
-  scemo-pezzente-discord:
-    build:
-      context: ./client
-      dockerfile: Dockerfile.client
-    container_name: scemo-pezzente-discord
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    image: "scemo-pezzente-discord:latest"
-    restart: "no"
-    depends_on:
-      - scemo-pezzente-api-balancer
-    volumes:
-      - "./config.json:/usr/src/app/config.json"
-      - "/tmp/scemo-pezzente-discord:/tmp/scemo-pezzente-discord"
-  scemo-pezzente-telegram:
-    build:
-      context: ./FrittoPlayTelegramBot
-      dockerfile: Dockerfile
-    container_name: scemo-pezzente-telegram
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    depends_on:
-      - scemo-pezzente-api-balancer
-    volumes:
-      - ".env:/app/.env"
-    image: "scemo-pezzente-telegram:latest"
-    restart: "no"
 networks:
   caching:
     driver: bridge
