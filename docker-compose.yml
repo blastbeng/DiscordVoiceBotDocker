@@ -10,7 +10,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "discord-voicebot-api:latest"
+    image: "blastbeng/discord-voicebot-api:latest"
     restart: "no"
     volumes:
       - ".env:/app/.env"
@@ -33,7 +33,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "discord-voicebot-battuteapi:latest"
+    image: "blastbeng/discord-voicebot-battuteapi:latest"
     volumes:
       - ./config/battuteapi_data:/usr/src/app/data
     ports:
@@ -44,7 +44,7 @@ services:
       context: ./api
       dockerfile: Dockerfile.balancer
     container_name: discord-voicebot-api-balancer
-    image: "discord-voicebot-api-balancer:latest"
+    image: "blastbeng/discord-voicebot-api-balancer:latest"
     ports:
       - "5080:5080"
     depends_on:
@@ -72,7 +72,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "discord-voicebot-discord:latest"
+    image: "blastbeng/discord-voicebot-discord:latest"
     restart: "no"
     depends_on:
       discord-voicebot-api-balancer:
@@ -94,7 +94,7 @@ services:
         condition: service_healthy
     volumes:
       - ".env:/app/.env"
-    image: "discord-voicebot-telegram:latest"
+    image: "blastbeng/discord-voicebot-telegram:latest"
     restart: "no"
 networks:
   caching:
