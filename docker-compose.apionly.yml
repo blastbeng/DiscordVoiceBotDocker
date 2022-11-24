@@ -1,11 +1,11 @@
 ---
 version: "3.3"
 services:
-  scemo-pezzente-api-1:
+  scemo-pezzente-api:
     build:
       context: ./api
       dockerfile: Dockerfile.api
-    container_name: scemo-pezzente-api-1
+    container_name: scemo-pezzente-api
     environment:
       - PUID=1000
       - PGID=1000
@@ -19,26 +19,8 @@ services:
       - "/dev/dri/card0:/dev/dri/card0"
       - "/dev/dri/renderD128:/dev/dri/renderD128"
     entrypoint: ./entrypoint.sh
-    networks:
-      - caching
-  scemo-pezzente-api-2:
-    build:
-      context: ./api
-      dockerfile: Dockerfile.api
-    container_name: scemo-pezzente-api-2
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    image: "scemo-pezzente-api:latest"
-    restart: "no"
-    volumes:
-      - ".env:/app/.env"
-      - "./config:/app/config"
-      - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
-      - "/dev/dri/card0:/dev/dri/card0"
-      - "/dev/dri/renderD128:/dev/dri/renderD128"
-    entrypoint: uwsgi --ini uwsgi.ini --enable-threads --socket /tmp/scemo-pezzente-api/scemo-pezzente-2.sock
+    ports:
+      - "5080:5080"
     networks:
       - caching
   battuteapi:
@@ -55,26 +37,13 @@ services:
       - ./config/battuteapi_data:/usr/src/app/data
     ports:
       - 3050:3050
+    restart: "no"
   redis:
     image: redis
     container_name: voicebot-redis
     networks:
       - caching
-  scemo-pezzente-api-balancer:
-    build:
-      context: ./api
-      dockerfile: Dockerfile.balancer
-    container_name: scemo-pezzente-api-balancer
-    image: "scemo-pezzente-api-balancer:latest"
-    ports:
-      - "5080:80"
-    depends_on:
-      - scemo-pezzente-api-1
-      - scemo-pezzente-api-2
-      - scemo-pezzente-api-3
-      - scemo-pezzente-api-4
-    volumes:
-      - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
+    restart: "no"
 networks:
   caching:
     driver: bridge
