@@ -1,11 +1,11 @@
 ---
 version: "3.3"
 services:
-  scemo-pezzente-api:
+  discord-voicebot-api:
     build:
       context: ./api
       dockerfile: Dockerfile.api
-    container_name: scemo-pezzente-api
+    container_name: discord-voicebot-api
     environment:
       - PUID=1000
       - PGID=1000
@@ -23,8 +23,8 @@ services:
     #  - "5080:5080"
     networks:
       - caching
-  battuteapi:
-    container_name: battuteapi
+  discord-voicebot-battuteapi:
+    container_name: discord-voicebot-battuteapi
     build:
       context: ./battuteAPI
       dockerfile: Dockerfile
@@ -39,16 +39,16 @@ services:
     ports:
       - 3050:3050
     restart: "no"
-  scemo-pezzente-api-balancer:
+  discord-voicebot:
     build:
       context: ./api
       dockerfile: Dockerfile.balancer
-    container_name: scemo-pezzente-api-balancer
+    container_name: discord-voicebot
     image: "discord-voicebot-api-balancer:latest"
     ports:
       - "5080:5080"
     depends_on:
-      - scemo-pezzente-api
+      - discord-voicebot-api
     volumes:
       - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
     restart: "no"
@@ -63,7 +63,7 @@ services:
     networks:
       - caching
     restart: "no"
-  scemo-pezzente-discord:
+  discord-voicebot-discord:
     build:
       context: ./client
       dockerfile: Dockerfile.client
@@ -75,22 +75,22 @@ services:
     image: "discord-voicebot-discord:latest"
     restart: "no"
     depends_on:
-      scemo-pezzente-api-balancer:
+      discord-voicebot:
         condition: service_healthy
     volumes:
       - "./config.json:/usr/src/app/config.json"
       - "/tmp/scemo-pezzente-discord:/tmp/scemo-pezzente-discord"
-  scemo-pezzente-telegram:
+  discord-voicebot-telegram:
     build:
       context: ./FrittoPlayTelegramBot
       dockerfile: Dockerfile
-    container_name: scemo-pezzente-telegram
+    container_name: discord-voicebot-telegram
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
     depends_on:
-      scemo-pezzente-api-balancer:
+      discord-voicebot-api-balancer:
         condition: service_healthy
     volumes:
       - ".env:/app/.env"
