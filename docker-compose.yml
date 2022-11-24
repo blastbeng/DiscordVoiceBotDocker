@@ -75,7 +75,7 @@ services:
     image: "discord-voicebot-discord:latest"
     restart: "no"
     depends_on:
-      discord-voicebot:
+      discord-voicebot-api-balancer:
         condition: service_healthy
     volumes:
       - "./config.json:/usr/src/app/config.json"
