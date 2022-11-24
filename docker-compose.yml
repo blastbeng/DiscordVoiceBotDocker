@@ -10,7 +10,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "blastbeng/discord-voicebot-api:latest"
+    image: "blastbeng/discord-voicebot-api:1.0.0"
     restart: "no"
     volumes:
       - ".env:/app/.env"
@@ -33,7 +33,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "blastbeng/discord-voicebot-battuteapi:latest"
+    image: "blastbeng/discord-voicebot-battuteapi:1.0.0"
     volumes:
       - ./config/battuteapi_data:/usr/src/app/data
     ports:
@@ -44,7 +44,7 @@ services:
       context: ./api
       dockerfile: Dockerfile.balancer
     container_name: discord-voicebot-api-balancer
-    image: "blastbeng/discord-voicebot-api-balancer:latest"
+    image: "blastbeng/discord-voicebot-api-balancer:1.0.0"
     ports:
       - "5080:5080"
     depends_on:
@@ -53,26 +53,26 @@ services:
       - "/tmp/scemo-pezzente-api:/tmp/scemo-pezzente-api"
     restart: "no"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://192.168.1.160:5080/chatbot_text/repeat/healtcheck/000000"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5080/utils/healthcheck"]
       interval: 30s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
   redis:
     image: redis
-    container_name: voicebot-redis
+    container_name: discord-voicebot-redis
     networks:
       - caching
     restart: "no"
-  discord-voicebot-discord:
+  discord-voicebot-client:
     build:
       context: ./client
       dockerfile: Dockerfile.client
-    container_name: discord-voicebot-discord
+    container_name: discord-voicebot-client
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "blastbeng/discord-voicebot-discord:latest"
+    image: "blastbeng/discord-voicebot-client:1.0.0"
     restart: "no"
     depends_on:
       discord-voicebot-api-balancer:
@@ -94,7 +94,7 @@ services:
         condition: service_healthy
     volumes:
       - ".env:/app/.env"
-    image: "blastbeng/discord-voicebot-telegram:latest"
+    image: "blastbeng/discord-voicebot-telegram:1.0.0"
     restart: "no"
 networks:
   caching:
