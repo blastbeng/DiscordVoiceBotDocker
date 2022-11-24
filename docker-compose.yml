@@ -39,11 +39,11 @@ services:
     ports:
       - 3050:3050
     restart: "no"
-  discord-voicebot:
+  discord-voicebot-api-balancer:
     build:
       context: ./api
       dockerfile: Dockerfile.balancer
-    container_name: discord-voicebot
+    container_name: discord-voicebot-api-balancer
     image: "discord-voicebot-api-balancer:latest"
     ports:
       - "5080:5080"
@@ -67,7 +67,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile.client
-    container_name: scemo-pezzente-discord
+    container_name: discord-voicebot-discord
     environment:
       - PUID=1000
       - PGID=1000
