@@ -10,7 +10,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "scemo-pezzente-api:latest"
+    image: "discord-voicebot-api:latest"
     restart: "no"
     volumes:
       - ".env:/app/.env"
@@ -24,6 +24,7 @@ services:
     networks:
       - caching
   battuteapi:
+    container_name: battuteapi
     build:
       context: ./battuteAPI
       dockerfile: Dockerfile
@@ -32,7 +33,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "battuteapi:latest"
+    image: "discord-voicebot-battuteapi:latest"
     volumes:
       - ./config/battuteapi_data:/usr/src/app/data
     ports:
@@ -43,7 +44,7 @@ services:
       context: ./api
       dockerfile: Dockerfile.balancer
     container_name: scemo-pezzente-api-balancer
-    image: "scemo-pezzente-api-balancer:latest"
+    image: "discord-voicebot-api-balancer:latest"
     ports:
       - "5080:5080"
     depends_on:
@@ -71,7 +72,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Rome
-    image: "scemo-pezzente-discord:latest"
+    image: "discord-voicebot-discord:latest"
     restart: "no"
     depends_on:
       scemo-pezzente-api-balancer:
@@ -93,7 +94,7 @@ services:
         condition: service_healthy
     volumes:
       - ".env:/app/.env"
-    image: "scemo-pezzente-telegram:latest"
+    image: "discord-voicebot-telegram:latest"
     restart: "no"
 networks:
   caching:
