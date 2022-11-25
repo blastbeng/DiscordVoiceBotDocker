@@ -62,40 +62,7 @@ services:
     container_name: discord-voicebot-redis
     networks:
       - caching
-    restart: "no"
-  discord-voicebot-client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile.client
-    container_name: discord-voicebot-client
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    image: "blastbeng/discord-voicebot-client:1.0.0"
-    restart: "no"
-    depends_on:
-      discord-voicebot-api-balancer:
-        condition: service_healthy
-    volumes:
-      - "./config.json:/usr/src/app/config.json"
-      - "/tmp/scemo-pezzente-discord:/tmp/scemo-pezzente-discord"
-  discord-voicebot-telegram:
-    build:
-      context: ./FrittoPlayTelegramBot
-      dockerfile: Dockerfile
-    container_name: discord-voicebot-telegram
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    depends_on:
-      discord-voicebot-api-balancer:
-        condition: service_healthy
-    volumes:
-      - ".env:/app/.env"
-    image: "blastbeng/discord-voicebot-telegram:1.0.0"
-    restart: "no"
+    restart: "no"  
   discord-voicebot-cron:
     container_name: discord-voicebot-cron
     build:
