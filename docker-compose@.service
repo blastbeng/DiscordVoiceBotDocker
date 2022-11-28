@@ -1,0 +1,15 @@
+[Unit]
+Description=%i service with docker compose
+Requires=docker.service
+After=docker.service
+[Service]
+Restart=always
+User=blast
+Group=docker
+WorkingDirectory=/opt/docker/compose/%i
+ExecStartPre=/usr/bin/docker-compose -f docker-compose.yml down
+ExecStart=/usr/bin/docker-compose -f docker-compose.yml up --remove-orphans --abort-on-container-exit
+ExecStop=/usr/bin/docker-compose -f docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target

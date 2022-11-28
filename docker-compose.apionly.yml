@@ -62,7 +62,7 @@ services:
     container_name: discord-voicebot-redis
     networks:
       - caching
-    restart: "no"  
+    restart: "no"
   discord-voicebot-cron:
     container_name: discord-voicebot-cron
     build:
@@ -73,6 +73,12 @@ services:
       - ./cron/crontab.txt:/etc/crontab
       - "/tmp/scemo-pezzente-discord:/discord-voicebot-client-tmpdir"
       - "/tmp/scemo-pezzente-api:/discord-voicebot-api-tmpdir"
+  discord-voicebot-tor:
+    container_name: discord-voicebot-tor
+    ports:
+      - '192.168.1.160:9058:9051'
+    image: dockage/tor-privoxy
+    restart: "no"
 networks:
   caching:
     driver: bridge

@@ -63,23 +63,6 @@ services:
     networks:
       - caching
     restart: "no"
-  discord-voicebot-client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile.client
-    container_name: discord-voicebot-client
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Rome
-    image: "blastbeng/discord-voicebot-client:1.0.0"
-    restart: "no"
-    depends_on:
-      discord-voicebot-api-balancer:
-        condition: service_healthy
-    volumes:
-      - "./config.json:/usr/src/app/config.json"
-      - "/tmp/scemo-pezzente-discord:/tmp/scemo-pezzente-discord"
   discord-voicebot-telegram:
     build:
       context: ./FrittoPlayTelegramBot
@@ -111,7 +94,7 @@ services:
     ports:
       - '192.168.1.160:9058:9051'
     image: dockage/tor-privoxy
-    restart: "no"
+     restart: "no"
 networks:
   caching:
     driver: bridge
