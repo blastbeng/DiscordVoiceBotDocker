@@ -5,7 +5,7 @@
 	path = api
 	url = https://github.com/blastbeng/DiscordVoiceBotServer
 [submodule "telegram"]
-	path = FrittoPlayTelegramBot
+	path = telegram
 	url = https://github.com/blastbeng/FrittoPlayTelegramBot
 [submodule "battuteAPI"]
 	path = battuteAPI
