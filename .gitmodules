@@ -4,12 +4,9 @@
 [submodule "api"]
 	path = api
 	url = https://github.com/blastbeng/DiscordVoiceBotServer
-[submodule "FrittoPlayTelegramBot"]
+[submodule "telegram"]
 	path = FrittoPlayTelegramBot
 	url = https://github.com/blastbeng/FrittoPlayTelegramBot
-[submodule "FrittoPlayWhatsappBot"]
-	path = FrittoPlayWhatsappBot
-	url = https://github.com/blastbeng/FrittoPlayWhatsappBot
 [submodule "battuteAPI"]
 	path = battuteAPI
 	url = https://github.com/blastbeng/battuteAPI
