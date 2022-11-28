@@ -82,7 +82,7 @@ services:
       - "/tmp/scemo-pezzente-discord:/tmp/scemo-pezzente-discord"
   discord-voicebot-telegram:
     build:
-      context: ./FrittoPlayTelegramBot
+      context: ./telegram
       dockerfile: Dockerfile
     container_name: discord-voicebot-telegram
     environment:

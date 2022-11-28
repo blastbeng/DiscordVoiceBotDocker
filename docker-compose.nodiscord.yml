@@ -65,7 +65,7 @@ services:
     restart: "no"
   discord-voicebot-telegram:
     build:
-      context: ./FrittoPlayTelegramBot
+      context: ./telegram
       dockerfile: Dockerfile
     container_name: discord-voicebot-telegram
     environment:
